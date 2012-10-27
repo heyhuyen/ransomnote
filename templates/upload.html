@@ -1,0 +1,14 @@
+$def with (letter=None, imgpath=None, error=None)
+
+$if error:
+    <p>Error: $error</p>
+$elif letter:
+    <p>Uploaded <em>$letter</em></p>
+    <img src=$imgpath alt="default">
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="text" name="myletter" required="required" autofocus="autofocus"/>
+    <br />
+    <input type="file" name="myfile" required="required"/>
+    <input type="submit"/>
+</form>
