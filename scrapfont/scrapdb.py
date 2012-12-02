@@ -9,13 +9,13 @@ def rm_letter(db, letter, filename):
     """ Removes entry from db if it exists.
 
     Returns 1 if deleted successfully, 0 otherwise.
-    
+
     """
-    uid = int(filename.split('.')[0])
+    id_num = int(filename.split('.')[0])
     ext = filename.split('.')[-1]
-    if get_letter(db, uid, letter, ext):
+    if get_letter(db, id_num, letter, ext):
         where_dict = {
-            'id' : uid,
+            'id' : id_num,
             'letter' : letter.lower(),
             'ext' : ext
         }
@@ -23,15 +23,14 @@ def rm_letter(db, letter, filename):
         return 1
     return 0
 
-
-def get_letter(db, uid, letter, ext):
+def get_letter(db, id_num, letter, ext):
     """ Retrieves entry from db if it exists.
 
     Returns None if it doesn't exist.
-    
+
     """
     where_dict = {
-        'id' : uid,
+        'id' : id_num,
         'letter' : letter.lower(),
         'ext' : ext
     }
@@ -46,7 +45,7 @@ def get_random_letter_file(db, letter):
     count = query[0].total
     if count > 0:
         matches = db.select('letters', where="letter=$letter", vars = locals())
-        row = matches[randint(0, count-1)]
+        row = matches[randint(0, count - 1)]
         path = 'img/' + letter + '/' + str(row.id) + '.' + row.ext
         return path
     else:

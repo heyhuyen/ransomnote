@@ -11,7 +11,6 @@ def upload_file(dirpath, uid, ext, ufile):
     fout.close()
     return filepath
 
-
 def file_exists(path):
     dirchunks = path.split('/')
     dirpath = '/'.join(dirchunks[0:len(dirchunks)-1])
@@ -20,11 +19,9 @@ def file_exists(path):
 
 def open_image(path):
     return open(path, 'rb')
-    
 
 def dir_exists(dirpath):
     return os.path.exists(dirpath)
-
 
 def make_dir(dirpath):
     try:
@@ -35,7 +32,6 @@ def make_dir(dirpath):
             return dirpath
         else:
             raise
-
 
 def rm_dir(dirpath):
     if os.path.exists(dirpath):

@@ -1,4 +1,5 @@
 import web
+import json
 from scrapfont import scrapdb
 from scrapfont import filesystem
 
@@ -15,12 +16,12 @@ db = web.database(dbn='sqlite', db='scrapfont.db')
 
 render = web.template.render('templates/', base="base")
 
-
+#------------------------------------------------------------------------------
 class Index(object):
     def GET(self):
         return render.index()
 
-
+#------------------------------------------------------------------------------
 class Upload(object):
     def GET(self):
         return render.upload()
@@ -36,7 +37,7 @@ class Upload(object):
         else:
             return render.upload(error="Choose a file.")
 
-
+#------------------------------------------------------------------------------
 class Image(object):
     def GET(self, name):
         ext = name.split('.')[-1]
@@ -53,8 +54,7 @@ class Image(object):
         else:
             raise web.notfound()
 
-import json
-import pdb
+#------------------------------------------------------------------------------
 class Ransom(object):
     def GET(self):
         return render.ransomnote()
@@ -63,10 +63,12 @@ class Ransom(object):
         x = web.input(inputchar=None)
         if x['inputchar']:
             if x['inputchar'].isalpha():
-                result = scrapdb.get_random_letter_file(db, x['inputchar'].lower())
+                result = scrapdb.get_random_letter_file(db,
+                                                        x['inputchar'].lower())
                 return json.dumps(result)
         else:
             raise web.notfound()
 
+#------------------------------------------------------------------------------
 if __name__ == "__main__":
         app.run()
